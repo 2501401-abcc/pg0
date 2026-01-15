@@ -1,128 +1,311 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-    <title>own tune / poem</title>
-    <link href="style.css" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Poem Gallery</title>
+
+  <style>
+    /* ===== Base ===== */
+    body{
+      margin:0;
+      padding:24px;
+      font-family: Arial, sans-serif;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      color:#fff;
+      overflow-x:hidden;
+
+      /* Fantastically Pink background */
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(255,182,193,0.55), transparent 60%),
+        radial-gradient(900px 700px at 80% 20%, rgba(255,105,180,0.35), transparent 55%),
+        radial-gradient(1100px 900px at 50% 90%, rgba(167,139,250,0.28), transparent 60%),
+        linear-gradient(135deg, #140018, #1a0932 45%, #09061a);
+    }
+
+    /* 背景のキラっと感（薄いオーバーレイ） */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(255,255,255,0.06), transparent 45%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.05), transparent 50%);
+      pointer-events:none;
+      z-index:0;
+    }
+
+    h1{
+      margin: 10px 0 18px;
+      font-size: 52px;
+      letter-spacing: 1px;
+      position:relative;
+      z-index:2;
+      text-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    }
+
+    /* ===== Welcome ===== */
+    #welcome-message{
+      display:none;
+      font-size:24px;
+      text-align:center;
+      margin: 8px 0 18px;
+
+      /* ピンク寄りに */
+      color:#ffd1e8;
+
+      opacity:0;
+      transform: translateY(-6px);
+      transition: opacity 450ms ease, transform 450ms ease;
+      position:relative;
+      z-index:2;
+      text-shadow: 0 10px 26px rgba(0,0,0,0.35);
+    }
+    #welcome-message.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* ===== Card ===== */
+    .card{
+      width:min(900px, 95vw);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+      position:relative;
+      z-index:2;
+    }
+
+    #poem-container{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    #poem-image{
+      width:100%;
+      max-width: 860px;
+      height:auto;
+      border-radius: 14px;
+      background: #ffffff;
+      padding: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.35);
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 300ms ease, transform 300ms ease;
+    }
+
+    #poem-image.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer{
+      margin-top:14px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    #status{
+      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+    }
+
+    button{
+      padding: 11px 18px;
+      font-size: 15px;
+      background: linear-gradient(135deg, #ff4da6, #7c3aed);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 120ms ease, opacity 200ms ease;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+    }
+
+    button:hover{ transform: translateY(-1px); }
+    button:disabled{
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ===== Sakura Floating Layer ===== */
+    #sakura-layer{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index:1; /* 背景(0)とカード(2)の間 */
+    }
+
+    .sakura{
+      position:absolute;
+      top:-10vh;
+      width:12px;
+      height:18px;
+      border-radius: 70% 70% 70% 70%;
+      background:
+        radial-gradient(circle at 30% 30%,
+          rgba(255,255,255,0.9),
+          rgba(255,182,193,0.95) 45%,
+          rgba(255,105,180,0.75)
+        );
+      opacity:0.85;
+      filter: blur(0.2px);
+      box-shadow: 0 0 10px rgba(255,105,180,0.18);
+
+      animation-name: fall, sway, spin;
+      animation-timing-function: linear, ease-in-out, linear;
+      animation-iteration-count: infinite, infinite, infinite;
+      will-change: transform;
+    }
+
+    @keyframes fall{
+      to { transform: translateY(120vh); }
+    }
+    @keyframes sway{
+      0%   { margin-left: 0px; }
+      50%  { margin-left: 70px; }
+      100% { margin-left: 0px; }
+    }
+    @keyframes spin{
+      to { rotate: 360deg; }
+    }
+  </style>
 </head>
-<body class="poem">
-    <nav class="navbar">
-            <div class="nav-left"><strong><p>WELCOME</p></strong>
-                <br><div class="nav-right">
-                    <img src="image/BACKGROUND IMAGE/flag.jpg" alt="写真" class="icon">
-                </div>
-            </div>
-            <div class="nav-left">
-                <a href="https://www.facebook.com/ye.y.soe.520"><img src="image/FB.png" alt="icon2" class="icon2"></a>
-            </div>    
-            
-        <ul class="nav-menu">
-                <ul>
-                    <li><a href="index.html">ホーム</a></li>
-                    <li><a href="hometown.html">出身地</a></li>
-                    <li><a href="shumi.html">趣味</a></li>
-                    <li><a href="tabemono.html">好きな食べ物</a></li>
-                    <li><a href="eiga.html">好きな映画</a></li>
-                    <li><a href="jiyu.html">自由項目</a></li>
-                </ul> 
-    </nav>
 
-<header>
-    <h1>WELCOME TO MY POEM VILLAGE</h1>
-</header>
+<body>
+  <!-- Sakura layer -->
+  <div id="sakura-layer" aria-hidden="true"></div>
 
-    <div class="container">
-        
-    <div class="items">
-        <p><h3>NOTE1</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(16).png"></p>
+  <h1>Poem Gallery</h1>
+  <div id="welcome-message">Welcome to My Poem Gallery! ✨</div>
+
+  <div class="card">
+    <div id="poem-container">
+      <img id="poem-image" src="" alt="Poem Image">
     </div>
 
-    <div class="items">
-        <p><h3>NOTE1</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(17).png"></p>
+    <div class="footer">
+      <div id="status">Loading...</div>
+      <button id="load-more">Read More</button>
     </div>
+  </div>
 
-    <div class="items">
-        <p><h3>NOTE2</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(18).png"></p>
-    </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
 
-    <div class="items">
-        <p><h3>NOTE3</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(19).png"></p>
-    </div>
+      /* ===== Poem images ===== */
+      const images = [
+        "image/POEM/poem(16).png",
+        "image/POEM/poem(17).png",
+        "image/POEM/poem(18).png",
+        "image/POEM/poem(19).png",
+        "image/POEM/poem(20).png",
+        "image/POEM/poem(10).png",
+        "image/POEM/poem(11).png",
+        "image/POEM/poem(23).png",
+        "image/POEM/poem(24).png",
+        "image/POEM/poem(25).png",
+        "image/POEM/poem(26).png",
+        "image/POEM/poem(27).png",
+        "image/POEM/poem(28).png",
+        "image/POEM/poem(29).png",
+        "image/POEM/poem(30).png",
+        "image/POEM/poem(31).png",
+        "image/POEM/poem(32).png",
+        "image/POEM/poem(33).png",
+        "image/POEM/poem(34).png",
+        "image/POEM/poem(35).png",
+        "image/POEM/poem(36).png",
+        "image/POEM/poem(37).png",
+        "image/POEM/poem(38).png",
+        "image/POEM/poem(39).png",
+        "image/POEM/poem(40).png",
+      ];
 
-    <div class="items">
-        <p><h3>NOTE4</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(20).png"></p>
-    </div>
-   
-    <div class="items">
-        <p><h3>NOTE5</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(10).png"></p>
-    </div>
+      let currentIndex = 0;
 
-    <div class="items">
-        <p><h3>NOTE6</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(11).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE7</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(23).png"></p>
-    </div>
+      const poemImage = document.getElementById("poem-image");
+      const loadMoreButton = document.getElementById("load-more");
+      const status = document.getElementById("status");
+      const welcomeMessage = document.getElementById("welcome-message");
 
-    <div class="items">
-        <p><h3>NOTE8</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(24).png"></p>
-    </div>
+      /* ===== Welcome show ===== */
+      setTimeout(() => {
+        welcomeMessage.style.display = "block";
+        requestAnimationFrame(() => welcomeMessage.classList.add("show"));
+      }, 150);
 
-    <div class="items">
-        <p><h3>NOTE9</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(25).png"></p>
-    </div>
+      function showImage(index){
+        poemImage.classList.remove("show");
 
-    <div class="items">
-        <p><h3>NOTE10</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(26).png"></p>
-    </div>
+        poemImage.onload = () => {
+          poemImage.classList.add("show");
+        };
 
-    <div class="items">
-        <p><h3>NOTE11</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(26).png"></p>
-    </div>
+        poemImage.src = images[index];
+        status.textContent = `Poem ${index + 1} / ${images.length}`;
+      }
 
-    <div class="items">
-        <p><h3>NOTE12</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(27).png"></p>
-    </div>
+      if(images.length > 0){
+        showImage(currentIndex);
+      }else{
+        status.textContent = "画像がありません";
+        loadMoreButton.disabled = true;
+      }
 
-    <div class="items">
-        <p><h3>NOTE13</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(28).png"></p>
-    </div>
+      loadMoreButton.addEventListener("click", () => {
+        currentIndex++;
 
-    <div class="items">
-        <p><h3>NOTE14</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(29).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE15</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(30).png"></p>
-    </div>
+        if(currentIndex < images.length){
+          showImage(currentIndex);
+        }else{
+          loadMoreButton.disabled = true;
+          loadMoreButton.textContent = "No more poems";
+          status.textContent = `Thanks for all reading.ဆက်လက်ကြိုးစားပါဦးမည်`;
+        }
+      });
 
-    <div class="items">
-        <p><h3>NOTE16</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(31).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE17</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(32).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE18</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(33).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE19</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(34).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE20</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(35).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE21</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(36).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE22</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(37).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE23</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(38).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE24</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(39).png"></p>
-    </div>
-    <div class="items">
-        <p><h3>NOTE25</h3><textarea cols="30" rows="4" placeholder="ここに貴方の感想を書いてください"></textarea><img src="image/POEM/poem(40).png"></p>
-    </div>
+      /* ===== Sakura Floating ===== */
+      const sakuraLayer = document.getElementById("sakura-layer");
+      const SAKURA_COUNT = 35; // スマホなら 20〜35 がおすすめ
+
+      function rand(min, max){ return Math.random() * (max - min) + min; }
+
+      for(let i=0; i<SAKURA_COUNT; i++){
+        const petal = document.createElement("span");
+        petal.className = "sakura";
+
+        petal.style.left = rand(0, 100) + "vw";
+
+        const size = rand(8, 18);
+        petal.style.width = size + "px";
+        petal.style.height = (size * 1.3) + "px";
+
+        petal.style.opacity = rand(0.35, 0.9);
+
+        const fallDur = rand(10, 20);
+        petal.style.animationDuration =
+          `${fallDur}s, ${rand(3.0, 6.0)}s, ${rand(3, 8)}s`;
+
+        petal.style.animationDelay =
+          `${rand(0, 8)}s, ${rand(0, 2)}s, ${rand(0, 2)}s`;
+
+        sakuraLayer.appendChild(petal);
+      }
+    });
+  </script>
 </body>
 </html>
