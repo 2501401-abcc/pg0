@@ -1,0 +1,357 @@
+/* ===== 基本リセット ===== */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background-color: #d6e04b;}
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif;
+  line-height: 1.6;
+  background: #d6e04b;
+  color: #111;
+}
+
+
+
+
+
+
+/* ===== レイアウト ===== */
+.container {
+  width: min(980px, calc(100% - 24px));
+  margin: 16px auto 48px;
+  
+}
+
+.app-header {
+
+  padding: 14px 12px;
+  background: linear-gradient(135deg, #667b40, #deb459);
+  
+  color: #ffffff;
+  border-bottom: none;
+}
+.header-row {
+  width: min(980px, calc(100% - 24px));
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.app-title {
+  font-size: 40px;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  color:black;
+}
+.app-title:hover{
+  background: #f1f3f8;
+}
+
+
+
+.app-subtitle {
+  margin: 6px 0 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.footer {
+  text-align: center;
+  padding: 18px 12px;
+  color: #666;
+}
+
+/* ===== ナビ ===== */
+.top-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+ 
+}
+.link {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+}
+.link:hover { background: #f1f2f6; }
+.link.is-active {
+  background: #eef2ff;
+  border-color: #dbe2ff;
+}
+
+/* ===== カード ===== */
+.card {
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 1px 6px rgba(0,0,0,.05);
+}
+.card-title {
+  font-family: 'Abril Fatface', serif;
+  margin: 0 0 10px;
+  font-size: 26px;
+  text-align: center;
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ===== グリッド（スマホ→1列、PC→2列） ===== */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+@media (min-width: 860px) {
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+}
+
+/* フォーム全体を縦並び */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;          /* 各項目の間隔 */
+}
+
+/* 1項目（タイトル・内容） */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ラベル文字 */
+.label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* 入力欄 */
+.input,
+.textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* ボタンエリア */
+.actions {
+  display: flex;
+  justify-content: flex-end; /* 右寄せ */
+}
+
+
+
+.input:focus, .textarea:focus { border-color: #7aa7ff; }
+
+.datetime {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f4f6ff;
+  border: 1px dashed #cdd7ff;
+  color: #223;
+}
+
+/* ===== ボタン ===== */
+.btn {
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px; /* スマホ押しやすい */
+  gap: 8px;
+}
+.btn-sm { padding: 8px 10px; min-height: 36px; font-size: 14px; }
+
+.btn-primary { background: #2f6bff; color: #fff; }
+.btn-primary:hover { filter: brightness(0.95); }
+
+.btn-secondary { background: #111; color: #fff; }
+.btn-secondary:hover { filter: brightness(0.95); }
+
+.btn-ghost { background: #f2f3f5; color: #222; border-color: #e1e1e1; }
+.btn-ghost:hover { background: #eceef2; }
+
+.btn-danger { background: #ff3b30; color: #fff; }
+.btn-danger:hover { filter: brightness(0.95); }
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* ===== 検索/メタ ===== */
+.search-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.count { margin: 6px 0 0; color: #333; }
+
+/* ===== 一覧 ===== */
+.list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.list-item {
+  border: 1px solid #ececec;
+  border-radius: 14px;
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+.item-main { display: grid; gap: 4px; }
+.item-title { margin: 0; font-weight: 700; }
+.item-time { margin: 0; color: #666; font-size: 13px; }
+.item-content { margin: 0; white-space: pre-wrap; }
+
+.hint {
+  margin: 10px 0 0;
+  color: #666;
+  font-size: 13px;
+}
+
+/* index用 */
+.switch-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+@media (min-width: 560px) {
+  .switch-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ===== index の選択カード（画像つき） ===== */
+.page-select{
+  display: grid;
+  grid-template-columns: 1fr;  /* 縦並び */
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.select-card{
+  position: relative;
+  display: block;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  border: 1px solid #e7e7e7;
+  box-shadow: 0 1px 6px rgba(0,0,0,.05);
+  min-height: 140px; /* 画像が見える高さ */
+}
+
+.select-img{
+  width: 95%;
+  height: 350px;
+  object-fit: cover;
+  display: block;
+}
+
+/* 文字を読みやすくする黒い薄いフィルター */
+.select-overlay{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  
+}
+
+.select-text{
+  font-family: 'Abril Fatface', serif;
+  color: #fff;
+  font-size: 30px;
+  font-weight: 900;
+  text-align: center;
+  
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.35);
+}
+
+/* PCでは横並びにしたいなら（任意） */
+@media (min-width: 900px){
+  .page-select{
+    grid-template-columns: 1fr 1fr; /* 横並び */
+  }
+}
+/* ===== ヘッダー横並び ===== */
+.header-inner{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.app-title{
+  font-size: 30px;
+  margin: 0;
+  font-size: 26px;
+  font-family: 'Abril Fatface', serif;
+}
+
+/* ===== ナビゲーション ===== */
+.top-nav{
+  display: flex;
+  gap: 10px;
+}
+
+.nav-link{
+  text-decoration: none;
+  font-family: 'Abril Fatface', serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: #333;
+  padding: 8px 14px;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+
+.nav-link:hover{
+  background: #f1f3f8;
+}
+
+/* 今選択されているページ */
+.nav-link.active{
+  background: #eef2ff;
+  border: 1px solid #dbe2ff;
+}
+
+.footer{
+  font-size: x-large;
+  font-family: 'Abril Fatface', serif;
+  
+}
