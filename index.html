@@ -1,0 +1,74 @@
+<!doctype html><!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>メモアプリ</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="js/app.js" defer></script>
+</head>
+
+<body>
+  <header class="app-header">
+    <div class="header-inner">
+      <h1 class="app-title">Hey Boy; Note here!</h1>
+      <nav class="top-nav">
+        <a class="nav-link active" href="index.html">ホーム</a>
+        <a class="nav-link" href="working.html">ワーク</a>
+        <a class="nav-link" href="learning.html">学習</a>
+      </nav>
+    </div>
+  </header>
+
+    <main class="container">
+        <h2 class="card-title">メモしたいページを選択してください。</h2>
+
+        <section class="card" id="homeSearchCard">
+          <h2 class="card-title">メモ検索</h2>
+
+          <div class="search-row">
+            <input id="homeSearchInput" class="input" type="search" placeholder="🔍 タイトル・内容で検索" autocomplete="off">
+            <button id="homeSearchClearBtn" class="btn btn-ghost" type="button">クリア</button>
+          </div>
+
+          <div class="meta-row">
+            <p class="count">検索結果：<span id="homeSearchCount">0</span>件</p>
+          </div>
+          <ul id="homeSearchList" class="list" aria-label="検索結果一覧"></ul>
+        </section>
+
+        <section class="page-select">
+          <a class="select-card" href="working.html">
+          <img class="select-img" src="img/memo1.jpg" alt="Working メモ画像">
+          <div class="select-overlay">
+            <span class="select-text">Working Area Memo</span>
+          </div>
+          </a>
+
+          <a class="select-card" href="learning.html">
+          <img class="select-img" src="img/memo2.jpg" alt="Learning メモ画像">
+          <div class="select-overlay">
+            <span class="select-text">Learning Area Memo</span>
+          </div>
+          </a>
+        </section>
+    </main>
+
+  <footer class="footer">
+    <small>Memo App Built For Personal By @yeyintsoe</small>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
