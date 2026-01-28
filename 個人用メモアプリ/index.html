@@ -20,49 +20,46 @@
     </div>
   </header>
 
-  <main class="container">
-    <h2 class="card-title">メモしたいページを選択してください。</h2>
+    <main class="container">
+        <h2 class="card-title">メモしたいページを選択してください。</h2>
 
+        <section class="card" id="homeSearchCard">
+          <h2 class="card-title">メモ検索</h2>
 
-    <!-- ✅ HOME：全体検索（Working + Learning） -->
-<section class="card" id="homeSearchCard">
-  <h2 class="card-title">メモ検索</h2>
+          <div class="search-row">
+            <input id="homeSearchInput" class="input" type="search" placeholder="🔍 タイトル・内容で検索" autocomplete="off">
+            <button id="homeSearchClearBtn" class="btn btn-ghost" type="button">クリア</button>
+          </div>
 
-  <div class="search-row">
-    <input id="homeSearchInput" class="input" type="search" placeholder="🔍 タイトル・内容で検索" autocomplete="off">
-    <button id="homeSearchClearBtn" class="btn btn-ghost" type="button">クリア</button>
-  </div>
+          <div class="meta-row">
+            <p class="count">検索結果：<span id="homeSearchCount">0</span>件</p>
+          </div>
+          <ul id="homeSearchList" class="list" aria-label="検索結果一覧"></ul>
+        </section>
 
-  <div class="meta-row">
-    <p class="count">検索結果：<span id="homeSearchCount">0</span>件</p>
-  </div>
+        <section class="page-select">
+          <a class="select-card" href="working.html">
+          <img class="select-img" src="img/memo1.jpg" alt="Working メモ画像">
+          <div class="select-overlay">
+            <span class="select-text">Working Area Memo</span>
+          </div>
+          </a>
 
-  <ul id="homeSearchList" class="list" aria-label="検索結果一覧"></ul>
-</section>
-
-
-    <section class="page-select">
-      <a class="select-card" href="working.html">
-        <img class="select-img" src="img/memo1.jpg" alt="Working メモ画像">
-        <div class="select-overlay">
-          <span class="select-text">Working Area Memo</span>
-        </div>
-      </a>
-
-      <a class="select-card" href="learning.html">
-        <img class="select-img" src="img/memo2.jpg" alt="Learning メモ画像">
-        <div class="select-overlay">
-          <span class="select-text">Learning Area Memo</span>
-        </div>
-      </a>
-    </section>
-  </main>
+          <a class="select-card" href="learning.html">
+          <img class="select-img" src="img/memo2.jpg" alt="Learning メモ画像">
+          <div class="select-overlay">
+            <span class="select-text">Learning Area Memo</span>
+          </div>
+          </a>
+        </section>
+    </main>
 
   <footer class="footer">
     <small>Memo App Built For Personal By @yeyintsoe</small>
   </footer>
 </body>
 </html>
+
 
 
 
